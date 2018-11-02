@@ -3,7 +3,7 @@ import request from "axios";
 import _ from "lodash";
 
 function formatFamilyMembersNames(member) {
-  if (member.family.length() === 0) return member;
+  if (member.family.length === 0) return member;
 
   const familyNamesArray = _.split(member.family, ",").map(name => {
     return name.trim();
