@@ -10,7 +10,7 @@ function formatFamilyMembersNames(member) {
 
     return Object.assign({}, member, { family: familyNamesArray });
   }
-  return member;
+  return Object.assign({}, member, { family: [] });
 }
 
 const familyDataLogic = createLogic({
