@@ -3,11 +3,14 @@ import request from "axios";
 import _ from "lodash";
 
 function formatFamilyMembersNames(member) {
-  const familyNamesArray = _.split(member.family, ",").map(name => {
-    return name.trim();
-  });
+  if (member) {
+    const familyNamesArray = _.split(member.family, ",").map(name => {
+      return name.trim();
+    });
 
-  return Object.assign({}, member, { family: familyNamesArray });
+    return Object.assign({}, member, { family: familyNamesArray });
+  }
+  return member;
 }
 
 const familyDataLogic = createLogic({
