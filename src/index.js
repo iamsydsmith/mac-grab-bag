@@ -1,32 +1,50 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 import { createLogicMiddleware } from "redux-logic";
 import { Provider } from "react-redux";
-import requestDataLogic from "./logic/requestDataLogic";
-import familyDataLogic from "./logic/familyDataLogic";
+import jwt_decode from "jwt-decode";
+import setAuthToken from "./setAuthToken.js";
+import userLogic from "./logic/userLogic";
+import authReducer from "./reducers/authReducer";
 
-import AddFamilyMemberForm from "./components/AddFamilyMemberForm.js";
+import App from "./components/App";
 
-const familyReducer = require("./reducers/familyReducer");
-const familyUrl = "https://mac-grab-bag.herokuapp.com/family";
+// const authReducer = require("./reducers/authReducer");
+const usersUrl = "https://mac-grab-bag.herokuapp.com/api/users";
 
 const deps = {
-  familyUrl
+  usersUrl
 };
 
-const logicMiddleware = createLogicMiddleware(
-  [requestDataLogic, familyDataLogic],
-  deps
-);
+const logicMiddleware = createLogicMiddleware([userLogic], deps);
 
-const store = createStore(familyReducer, applyMiddleware(logicMiddleware));
+const store = createStore(authReducer, applyMiddleware(logicMiddleware));
 
-store.dispatch({ type: "DATA_REQUEST" });
+store.dispatch({ type: "GET_INITIAL_STATE" });
+
+if (localStorage.jwtToken) {
+  setAuthToken(localStorage.jwtToken);
+  const decoded = jwt_decode(localStorage.jwtToken);
+  store.dispatch({
+    type: "SET_CURRENT_USER",
+    value: decoded
+  });
+
+  const currentTime = Date.now() / 1000;
+  if (decoded.exp < currentTime) {
+    store.dispatch({
+      type: "SET_CURRENT_USER",
+      value: ""
+    });
+    window.location.href = "/login";
+  }
+}
 
 ReactDOM.render(
   <Provider store={store}>
-    <AddFamilyMemberForm />
+    <App />
   </Provider>,
   document.getElementById("root")
 );
