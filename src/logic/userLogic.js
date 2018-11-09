@@ -11,7 +11,7 @@ const registerUser = createLogic({
     return request
       .post(usersUrl + "/register", user)
       .then(res => {
-        history.push("/login");
+        history.pushState(null, null, "/login");
         dispatch({ type: "GET_INITIAL_STATE" });
       })
       .catch(err => {
