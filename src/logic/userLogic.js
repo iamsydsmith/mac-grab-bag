@@ -10,7 +10,10 @@ const registerUser = createLogic({
 
     return request
       .post(usersUrl + "/register", user)
-      .then(res => history.push("/login"))
+      .then(res => {
+        history.push("/login");
+        dispatch({ type: "GET_INITIAL_STATE" });
+      })
       .catch(err => {
         dispatch({
           type: "GET_ERRORS",
