@@ -5,19 +5,21 @@ import { createLogicMiddleware } from "redux-logic";
 import { Provider } from "react-redux";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./setAuthToken.js";
-import userLogic from "./logic/userLogic";
 import authReducer from "./reducers/authReducer";
-
 import App from "./components/App";
+import registerLogic from "./logic/registerLogic";
+import loginLogic from "./logic/loginLogic";
 
-// const authReducer = require("./reducers/authReducer");
 const usersUrl = "https://mac-grab-bag.herokuapp.com/api/users";
 
 const deps = {
   usersUrl
 };
 
-const logicMiddleware = createLogicMiddleware([userLogic], deps);
+const logicMiddleware = createLogicMiddleware(
+  [registerLogic, loginLogic],
+  deps
+);
 
 const store = createStore(authReducer, applyMiddleware(logicMiddleware));
 

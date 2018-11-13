@@ -25,16 +25,4 @@ const registerUser = createLogic({
   }
 });
 
-// export const loginUser = (user) => dispatch => {
-//     axios.post('/api/users/login', user)
-//             .then(res => {
-//                 console.log(res.data);
-//             })
-//             .catch(err => {
-//                 dispatch({
-//                     type: GET_ERRORS,
-//                     payload: err.response.data
-//                 });
-//             });
-// }
 export default registerUser;
