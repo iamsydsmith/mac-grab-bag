@@ -1,18 +1,19 @@
 import { createLogic } from "redux-logic";
 import request from "axios";
+import history from "./../history";
 
 const registerUser = createLogic({
   type: "ADD_USER",
   latest: true,
 
-  process: function({ getState, usersUrl, history }, dispatch, done) {
+  process: function({ getState, usersUrl }, dispatch, done) {
     const { user } = getState();
 
     return request
       .post(usersUrl + "/register", user)
       .then(res => {
-        history.pushState(null, null, "/login");
-        dispatch({ type: "GET_INITIAL_STATE" });
+        history.push("/login");
+        done();
       })
       .catch(err => {
         dispatch({

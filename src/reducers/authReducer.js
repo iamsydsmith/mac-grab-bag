@@ -2,13 +2,14 @@ import isEmpty from "../helpers/isEmpty";
 
 const initialState = {
   isAuthenticated: false,
-  user: {}
+  user: {},
+  errors: {}
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case "GET_INITIAL_STATE": {
-      return state;
+      return initialState;
     }
 
     case "SET_CURRENT_USER":
@@ -18,8 +19,9 @@ const authReducer = (state = initialState, action) => {
         user: action.payload
       };
 
-    case "GET_ERRORS":
+    case "GET_ERRORS": {
       return action.payload;
+    }
 
     case "ADD_FIRST_NAME": {
       const user = Object.assign({}, state.user, {

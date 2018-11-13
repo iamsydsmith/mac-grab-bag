@@ -1,10 +1,11 @@
 // App.js
 
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Router, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import PropTypes from "prop-types";
 
+import history from "./../history";
 import Navbar from "./Navbar";
 import Register from "./Register";
 import Login from "./Login";
@@ -80,16 +81,21 @@ class App extends Component {
     });
   }
 
-  handleSubmit(event) {
+  handleRegisterSubmit(event) {
     event.preventDefault();
     this.context.store.dispatch({ type: "ADD_USER" });
+  }
+
+  handleLoginSubmit(event) {
+    event.preventDefault();
+    this.context.store.dispatch({ type: "LOGIN_USER" });
   }
 
   render() {
     const appState = this.context.store.getState();
 
     return (
-      <Router>
+      <Router history={history}>
         <div>
           <Navbar />
           <Route exact path="/" component={Home} />
@@ -100,6 +106,7 @@ class App extends Component {
               render={props => (
                 <Register
                   user={appState.user}
+                  error={appState.errors}
                   handleFirstNameChange={this.handleFirstNameChange.bind(this)}
                   handleLastNameChange={this.handleLastNameChange.bind(this)}
                   handleEmailChange={this.handleEmailChange.bind(this)}
@@ -113,12 +120,24 @@ class App extends Component {
                   handleCityChange={this.handleCityChange.bind(this)}
                   handleStateChange={this.handleStateChange.bind(this)}
                   handleZipCodeChange={this.handleZipCodeChange.bind(this)}
-                  handleSubmit={this.handleSubmit.bind(this)}
+                  handleSubmit={this.handleRegisterSubmit.bind(this)}
                   {...props}
                 />
               )}
             />
-            <Route exact path="/login" component={Login} />
+            <Route
+              exact
+              path="/login"
+              render={props => (
+                <Login
+                  user={appState.user}
+                  handleEmailChange={this.handleEmailChange.bind(this)}
+                  handlePasswordChange={this.handlePasswordChange.bind(this)}
+                  handleSubmit={this.handleLoginSubmit.bind(this)}
+                  {...props}
+                />
+              )}
+            />
           </div>
         </div>
       </Router>

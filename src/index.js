@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
 import { createLogicMiddleware } from "redux-logic";
 import { Provider } from "react-redux";
 import jwt_decode from "jwt-decode";
