@@ -1,8 +1,6 @@
 import React from "react";
 import classnames from "classnames";
 
-const _ = require("lodash");
-
 const Login = props => {
   const enabled = props.user.email && props.user.password;
   return (

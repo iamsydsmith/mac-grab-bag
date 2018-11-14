@@ -2,6 +2,7 @@ import isEmpty from "../helpers/isEmpty";
 
 const initialState = {
   isAuthenticated: false,
+  currentUser: {},
   user: {},
   errors: {}
 };
@@ -16,7 +17,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
-        user: action.payload
+        currentUser: action.payload
       };
 
     case "SET_ERRORS": {

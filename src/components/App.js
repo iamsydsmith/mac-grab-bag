@@ -91,17 +91,28 @@ class App extends Component {
     this.context.store.dispatch({ type: "LOGIN_USER" });
   }
 
+  logoutUser() {
+    this.context.store.dispatch({
+      type: "SET_CURRENT_USER",
+      payload: {}
+    });
+  }
+
   render() {
     const appState = this.context.store.getState();
 
     return (
       <Router history={history}>
         <div>
-          <Navbar />
+          <Navbar
+            user={appState.currentUser}
+            isAuthenticated={appState.isAuthenticated}
+            logoutUser={this.logoutUser.bind(this)}
+          />
           <Route
             exact
             path="/"
-            render={props => <Home user={appState.user} {...props} />}
+            render={props => <Home user={appState.currentUser} />}
           />
           <div className="container">
             <Route
