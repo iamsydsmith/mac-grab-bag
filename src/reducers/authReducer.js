@@ -19,14 +19,15 @@ const authReducer = (state = initialState, action) => {
         user: action.payload
       };
 
-    case "GET_ERRORS": {
-      return action.payload;
+    case "SET_ERRORS": {
+      return Object.assign({}, state, { errors: action.payload });
     }
 
     case "ADD_FIRST_NAME": {
       const user = Object.assign({}, state.user, {
         firstName: action.value
       });
+
       return Object.assign({}, state, { user });
     }
 
@@ -41,14 +42,24 @@ const authReducer = (state = initialState, action) => {
       const user = Object.assign({}, state.user, {
         email: action.value
       });
-      return Object.assign({}, state, { user });
+
+      const errors = Object.assign({}, state.errors, {
+        email: action.value.length < 1 ? "Please enter an email" : ""
+      });
+
+      return Object.assign({}, state, { user, errors });
     }
 
     case "ADD_PASSWORD": {
       const user = Object.assign({}, state.user, {
         password: action.value
       });
-      return Object.assign({}, state, { user });
+
+      const errors = Object.assign({}, state.errors, {
+        password: action.value.length < 1 ? "Please enter a password" : ""
+      });
+
+      return Object.assign({}, state, { user, errors });
     }
 
     case "ADD_PASSWORD_CONFIRM": {

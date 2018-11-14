@@ -12,13 +12,17 @@ const loginUser = createLogic({
     return request
       .post(usersUrl + "/login", user)
       .then(res => {
-        history.push("/home");
+        dispatch({
+          type: "SET_CURRENT_USER",
+          payload: res.data.user
+        });
+        history.push("/");
         done();
       })
       .catch(err => {
         dispatch({
-          type: "GET_ERRORS",
-          payload: err.message
+          type: "SET_ERRORS",
+          payload: err.response.data
         });
         done();
       });

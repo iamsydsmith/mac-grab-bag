@@ -1,9 +1,19 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Home extends Component {
-  render() {
-    return <div>Home Component</div>;
+const Home = props => {
+  if (props.user.firstName) {
+    return (
+      <div>
+        <h3>Hi {props.user.firstName}</h3>
+      </div>
+    );
   }
-}
+
+  return (
+    <div>
+      <h3>Please Login!</h3>
+    </div>
+  );
+};
 
 export default Home;

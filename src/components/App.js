@@ -98,7 +98,11 @@ class App extends Component {
       <Router history={history}>
         <div>
           <Navbar />
-          <Route exact path="/" component={Home} />
+          <Route
+            exact
+            path="/"
+            render={props => <Home user={appState.user} {...props} />}
+          />
           <div className="container">
             <Route
               exact
@@ -106,7 +110,7 @@ class App extends Component {
               render={props => (
                 <Register
                   user={appState.user}
-                  error={appState.errors}
+                  errors={appState.errors}
                   handleFirstNameChange={this.handleFirstNameChange.bind(this)}
                   handleLastNameChange={this.handleLastNameChange.bind(this)}
                   handleEmailChange={this.handleEmailChange.bind(this)}
@@ -131,6 +135,7 @@ class App extends Component {
               render={props => (
                 <Login
                   user={appState.user}
+                  errors={appState.errors}
                   handleEmailChange={this.handleEmailChange.bind(this)}
                   handlePasswordChange={this.handlePasswordChange.bind(this)}
                   handleSubmit={this.handleLoginSubmit.bind(this)}
