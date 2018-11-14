@@ -9,6 +9,7 @@ import authReducer from "./reducers/authReducer";
 import App from "./components/App";
 import registerLogic from "./logic/registerLogic";
 import loginLogic from "./logic/loginLogic";
+import logoutLogic from "./logic/logoutLogic";
 
 const usersUrl = "https://mac-grab-bag.herokuapp.com/api/users";
 
@@ -17,7 +18,7 @@ const deps = {
 };
 
 const logicMiddleware = createLogicMiddleware(
-  [registerLogic, loginLogic],
+  [registerLogic, loginLogic, logoutLogic],
   deps
 );
 

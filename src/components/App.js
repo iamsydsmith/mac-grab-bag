@@ -93,8 +93,7 @@ class App extends Component {
 
   logoutUser() {
     this.context.store.dispatch({
-      type: "SET_CURRENT_USER",
-      payload: {}
+      type: "LOGOUT_USER"
     });
   }
 
