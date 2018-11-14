@@ -17,8 +17,8 @@ const registerUser = createLogic({
       })
       .catch(err => {
         dispatch({
-          type: "GET_ERRORS",
-          payload: err.message
+          type: "SET_ERRORS",
+          payload: err.response.data
         });
         done();
       });

@@ -28,14 +28,23 @@ const authReducer = (state = initialState, action) => {
         firstName: action.value
       });
 
-      return Object.assign({}, state, { user });
+      const errors = Object.assign({}, state.errors, {
+        firstName: action.value.length < 1 ? "Please enter your first name" : ""
+      });
+
+      return Object.assign({}, state, { user, errors });
     }
 
     case "ADD_LAST_NAME": {
       const user = Object.assign({}, state.user, {
         lastName: action.value
       });
-      return Object.assign({}, state, { user });
+
+      const errors = Object.assign({}, state.errors, {
+        lastName: action.value.length < 1 ? "Please enter your last name" : ""
+      });
+
+      return Object.assign({}, state, { user, errors });
     }
 
     case "ADD_EMAIL": {
@@ -44,7 +53,7 @@ const authReducer = (state = initialState, action) => {
       });
 
       const errors = Object.assign({}, state.errors, {
-        email: action.value.length < 1 ? "Please enter an email" : ""
+        email: action.value.length < 1 ? "Please enter your email" : ""
       });
 
       return Object.assign({}, state, { user, errors });
@@ -56,7 +65,7 @@ const authReducer = (state = initialState, action) => {
       });
 
       const errors = Object.assign({}, state.errors, {
-        password: action.value.length < 1 ? "Please enter a password" : ""
+        password: action.value.length < 1 ? "Please enter your password" : ""
       });
 
       return Object.assign({}, state, { user, errors });
@@ -66,35 +75,62 @@ const authReducer = (state = initialState, action) => {
       const user = Object.assign({}, state.user, {
         password_confirm: action.value
       });
-      return Object.assign({}, state, { user });
+
+      const errors = Object.assign({}, state.errors, {
+        password_confirm:
+          action.value.length < 1 ? "Please enter your password" : ""
+      });
+
+      return Object.assign({}, state, { user, errors });
     }
 
     case "ADD_STREET_ADDRESS": {
       const user = Object.assign({}, state.user, {
         streetAddress: action.value
       });
-      return Object.assign({}, state, { user });
+
+      const errors = Object.assign({}, state.errors, {
+        streetAddress:
+          action.value.length < 1 ? "Please enter your address" : ""
+      });
+
+      return Object.assign({}, state, { user, errors });
     }
 
     case "ADD_CITY": {
       const user = Object.assign({}, state.user, {
         city: action.value
       });
-      return Object.assign({}, state, { user });
+
+      const errors = Object.assign({}, state.errors, {
+        city: action.value.length < 1 ? "Please enter your city" : ""
+      });
+
+      return Object.assign({}, state, { user, errors });
     }
 
     case "ADD_STATE": {
       const user = Object.assign({}, state.user, {
         state: action.value
       });
-      return Object.assign({}, state, { user });
+
+      const errors = Object.assign({}, state.errors, {
+        state: action.value.length < 1 ? "Please enter your state" : ""
+      });
+
+      return Object.assign({}, state, { user, errors });
     }
 
     case "ADD_ZIP_CODE": {
       const user = Object.assign({}, state.user, {
         zip: action.value
       });
-      return Object.assign({}, state, { user });
+
+      const errors = Object.assign({}, state.errors, {
+        zip: action.value.length < 1 ? "Please enter your zip code" : ""
+      });
+
+      return Object.assign({}, state, { user, errors });
     }
 
     default:
