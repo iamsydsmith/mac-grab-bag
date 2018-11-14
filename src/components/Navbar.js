@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Navbar = props => {
   const authLinks = (
     <ul className="navbar-nav ml-auto">
-      <a href="/" className="nav-link" onClick={props.logoutUser}>
+      <a href="/login" className="nav-link" onClick={props.logoutUser}>
         <img
           src={props.user.avatar}
           alt={props.user.firstName}
